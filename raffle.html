@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Raffle mania – 500 Entries</title>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        background: #f2f2f2;
+        margin: 0;
+        padding: 0;
+    }
+    header {
+        background: #333;
+        color: white;
+        padding: 20px;
+        text-align: center;
+    }
+    .container {
+        width: 90%;
+        max-width: 600px;
+        margin: 30px auto;
+        background: white;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 0 15px rgba(0,0,0,0.1);
+    }
+    button {
+        padding: 12px 20px;
+        background: #007bff;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 16px;
+    }
+    button:disabled {
+        background: gray;
+    }
+</style>
+</head>
+<body>
+
+<header>
+    <h1>🔥 PC Raffle – $3.50 per Entry 🔥</h1>
+    <p>Max 1500 entries</p>
+</header>
+
+<div class="container">
+    <h2>Entry Status</h2>
+    <p id="entryCount">Entries sold: <b>0</b> / 500</p>
+
+    <h3>Buy Entries</h3>
+    <label>Number of entries:</label>
+    <input type="number" id="entryInput" min="1" max="500" value="1">
+    <p>Total Price: $<span id="totalPrice">3.50</span></p>
+
+    <button onclick="buyEntry()" id="buyBtn">Buy Entry</button>
+
+    <hr>
+    <p><i>Note:<h3>Pay via Bank Transfer Apps</h3> </div>
+
+<script>
+    const pricePerEntry = 3.50;
+    const maxEntries = 1000;
+    let soldEntries = 0;
+
+    const entryCountElement = document.getElementById("entryCount");
+    const entryInput = document.getElementById("entryInput");
+    const totalPriceElement = document.getElementById("totalPrice");
+    const buyBtn = document.getElementById("buyBtn");
+
+    entryInput.addEventListener("input", function() {
+        let num = parseInt(entryInput.value);
+        if (num < 1) num = 1;
+        if (num > (maxEntries - soldEntries)) num = maxEntries - soldEntries;
+        entryInput.value = num;
+        totalPriceElement.textContent = (num * pricePerEntry).toFixed(2);
+    });
+
+    function buyEntry() {
+        let num = parseInt(entryInput.value);
+
+        if (soldEntries + num > maxEntries) {
+            alert("Not enough entries left!");
+            return;
+        }
+
+        soldEntries += num;
+        entryCountElement.innerHTML = `Entries sold: <b>${soldEntries}</b> / ${maxEntries}`;
+
+        if (soldEntries >= maxEntries) {
+            buyBtn.disabled = true;
+            alert("All entries sold out!");
+        } else {
+            alert(`You purchased ${num} entries! (Thank please email me for details Joshcrew2005@icloud.com,)`);
+        }
+    }
+</script>
+
+</body>
+</html>
